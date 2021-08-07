@@ -11,7 +11,7 @@ export const Base = styled(RebassButton)<{
   width?: string
   maxWidth?: string
   borderRadius?: string
-  backgroundColor?:string
+  backgroundColor?: string
   altDisabledStyle?: boolean
 }>`
   padding: ${({ padding }) => (padding ? padding : '18px')};

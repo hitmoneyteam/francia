@@ -248,7 +248,7 @@ export default function AccountDetails({
           <img src={WalletConnectIcon} alt={'wallet connect logo'} />
         </IconWrapper>
       )
-  } else if (connector === bscConnector) {
+    } else if (connector === bscConnector) {
       return (
         <IconWrapper size={16}>
           <img src={BinanceChainIcon} alt={'binance chain connect logo'} />

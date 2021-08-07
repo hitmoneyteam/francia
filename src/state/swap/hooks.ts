@@ -182,9 +182,7 @@ export function useDerivedSwapInfo(): {
   // compare input balance to max input based on version
   const [balanceIn, amountIn] = [
     currencyBalances[Field.INPUT],
-    slippageAdjustedAmounts
-      ? slippageAdjustedAmounts[Field.INPUT]
-      : null
+    slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null
   ]
 
   if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
@@ -230,18 +228,18 @@ function validatedRecipient(recipient: any): string | null {
 }
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-    let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-    let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
-      if (inputCurrency === outputCurrency && outputCurrency === 'ETH') {
-          outputCurrency = "0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88"
-      }
-    if (inputCurrency === outputCurrency) {
-      if (typeof parsedQs.outputCurrency === 'string') {
-        inputCurrency = ''
-      } else {
-        outputCurrency = ''
-      }
+  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
+  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+  if (inputCurrency === outputCurrency && outputCurrency === 'ETH') {
+    outputCurrency = '0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88'
+  }
+  if (inputCurrency === outputCurrency) {
+    if (typeof parsedQs.outputCurrency === 'string') {
+      inputCurrency = ''
+    } else {
+      outputCurrency = ''
     }
+  }
 
   const recipient = validatedRecipient(parsedQs.recipient)
 

@@ -43,7 +43,7 @@ export const PinkCard = styled(Card)`
 `
 
 export const StakeCard = styled(Card)`
-  background-image: radial-gradient(50% 64.04%, #623B20 0%, #20262E 100%);
+  background-image: radial-gradient(50% 64.04%, #623b20 0%, #20262e 100%);
   color: ${({ theme }) => theme.primary1};
   border-radius: 24.5px;
   max-width: 356px;

@@ -140,7 +140,12 @@ export const BigTileContent: React.FC<BigTileContentProps> = ({
     <Tile height={height} width={width} padding="15px 20px" margin="15px 0px 0px 0px">
       <AutoRow justify="space-between">
         <Title>
-          <img src={require(`assets/images/${currencyFromIconUri}`)} alt={currencyFromName} width="18px" height="18px" />
+          <img
+            src={require(`assets/images/${currencyFromIconUri}`)}
+            alt={currencyFromName}
+            width="18px"
+            height="18px"
+          />
           <span style={{ marginLeft: '7px' }}>{currencyFromName}</span>
         </Title>
         <Title>

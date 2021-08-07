@@ -10,14 +10,14 @@
   "logoURI": "https://exchange.pancakeswap.finance/images/pancakeswap.png",
   "keywords": ["pancake", "default"],
   "tokens": [
-      {
-          "name": "SafeMars",
-          "symbol": "SAFEMARS",
-          "address": "0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88",
-          "chainId": 56,
-          "decimals": 9,
-          "logoURI": "/images/safemars-logo.svg"
-      },
+    {
+      "name": "SafeMars",
+      "symbol": "SAFEMARS",
+      "address": "0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88",
+      "chainId": 56,
+      "decimals": 9,
+      "logoURI": "/images/safemars-logo.svg"
+    },
     {
       "name": "WBNB Token",
       "symbol": "WBNB",

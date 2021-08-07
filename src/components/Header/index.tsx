@@ -288,7 +288,13 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
-  const safeEarthToken = new Token(ChainId.MAINNET, '0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88', 9, 'SAFEMARS', 'SafeMars')
+  const safeEarthToken = new Token(
+    ChainId.MAINNET,
+    '0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88',
+    9,
+    'SAFEMARS',
+    'SafeMars'
+  )
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
 
@@ -327,16 +333,19 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-            <StyledNavLink id={`stake-nav-link`} to={'/stake'}>
-              {t('Stake')}
-            </StyledNavLink>
-            <StyledNavLink id={`mars-mission-nav-link`} to={'/mars-mission'}>
-              {"Mars Mission"}
-            </StyledNavLink>
-            <StyledNavLink id={`game-nav-link`} to={'/game'}>
-              {"Game"}
-            </StyledNavLink>
-          <StyledExternalLink id={`charts-nav-link`} href="https://dex.guru/token/0x3ad9594151886ce8538c1ff615efa2385a8c3a88-bsc">
+          <StyledNavLink id={`stake-nav-link`} to={'/stake'}>
+            {t('Stake')}
+          </StyledNavLink>
+          <StyledNavLink id={`mars-mission-nav-link`} to={'/mars-mission'}>
+            {'Mars Mission'}
+          </StyledNavLink>
+          <StyledNavLink id={`game-nav-link`} to={'/game'}>
+            {'Game'}
+          </StyledNavLink>
+          <StyledExternalLink
+            id={`charts-nav-link`}
+            href="https://dex.guru/token/0x3ad9594151886ce8538c1ff615efa2385a8c3a88-bsc"
+          >
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>

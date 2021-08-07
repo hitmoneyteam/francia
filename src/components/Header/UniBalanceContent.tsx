@@ -1,5 +1,5 @@
 import { ChainId, TokenAmount } from '@pancakeswap-libs/sdk'
-import BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js'
 import React from 'react'
 import { X } from 'react-feather'
 import styled from 'styled-components'
@@ -43,14 +43,13 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
 
   const totalSupply: TokenAmount | undefined = useTotalSupply(safemars)
   const priceData = usePriceData()
-  const safemarsPrice = priceData && safemars ?new BigNumber(priceData.data[safemars.address].price) : undefined
+  const safemarsPrice = priceData && safemars ? new BigNumber(priceData.data[safemars.address].price) : undefined
 
   const safemarsTotal = useTokenBalance(account ?? undefined, safemars)
   const safemarsDecimalTotal = safemarsTotal ? new BigNumber(safemarsTotal.toExact()) : undefined
 
-  const safemarsBalance = safemarsPrice && safemarsDecimalTotal
-  ? safemarsPrice.multipliedBy(safemarsDecimalTotal)
-  : undefined;
+  const safemarsBalance =
+    safemarsPrice && safemarsDecimalTotal ? safemarsPrice.multipliedBy(safemarsDecimalTotal) : undefined
 
   return (
     <ContentWrapper gap="lg">
@@ -94,7 +93,9 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
               <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween>
             {safemars && safemars.chainId === ChainId.MAINNET ? (
-              <ExternalLink href="https://pancakeswap.info/pair/0x2d3a6b1621b0ff8d5c8d4345957037ded9303226" >View SAFEMARS Analytics</ExternalLink>
+              <ExternalLink href="https://pancakeswap.info/pair/0x2d3a6b1621b0ff8d5c8d4345957037ded9303226">
+                View SAFEMARS Analytics
+              </ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

@@ -86,13 +86,7 @@ export default function Swap({ history }: RouteComponentProps) {
 
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
-  const {
-    v2Trade,
-    currencyBalances,
-    parsedAmount,
-    currencies,
-    inputError: swapInputError
-  } = useDerivedSwapInfo()
+  const { v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError } = useDerivedSwapInfo()
 
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
@@ -208,10 +202,7 @@ export default function Swap({ history }: RouteComponentProps) {
               : (recipientAddress ?? recipient) === account
               ? 'Swap w/o Send + recipient'
               : 'Swap w/ Send',
-          label: [
-            trade?.inputAmount?.currency?.symbol,
-            trade?.outputAmount?.currency?.symbol
-          ].join('/')
+          label: [trade?.inputAmount?.currency?.symbol, trade?.outputAmount?.currency?.symbol].join('/')
         })
 
         ReactGA.event({
@@ -285,9 +276,9 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const swapIsUnsupported = useIsTransactionUnsupported(currencies?.INPUT, currencies?.OUTPUT)
 
-    const tokenWarning: boolean = useMemo(() => {
-        return !!urlLoadedTokens.filter((c): c is Token => c.symbol !== "SAFEMARS" && c.symbol !== "ETH").length
-    }, [urlLoadedTokens])
+  const tokenWarning: boolean = useMemo(() => {
+    return !!urlLoadedTokens.filter((c): c is Token => c.symbol !== 'SAFEMARS' && c.symbol !== 'ETH').length
+  }, [urlLoadedTokens])
 
   return (
     <>
