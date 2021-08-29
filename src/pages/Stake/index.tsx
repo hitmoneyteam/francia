@@ -20,7 +20,7 @@ const Title = styled(Text)`
 function Stake() {
   return (
     <>
-      <Title style={{ marginBottom: '70px' }}>STAKE SAFEMARS AND WIN PRIZES</Title>
+      <Title style={{ marginBottom: '70px' }}>STAKING DAPP IS CURRENTLY NOT OPENED</Title>
       <AutoRow justify="center" gap="10px">
         {apiResponse.products.map(
           ({
