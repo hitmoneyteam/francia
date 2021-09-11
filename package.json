@@ -125,6 +125,9 @@
     "@pancakeswap-libs/sdk": "^1.0.1",
     "@uniswap/default-token-list": "^2.0.0",
     "bignumber.js": "^9.0.1",
-    "react-countdown": "^2.3.2"
+    "moment": "^2.29.1",
+    "react-countdown": "^2.3.2",
+    "react-usestateref": "^1.0.5",
+    "web3": "^1.5.2"
   }
 }

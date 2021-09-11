@@ -214,7 +214,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           <HighlightWrapper>
             <div style={{ alignSelf: 'center' }}>
               <ProductTitle>{productName}</ProductTitle>
-              <ProductSubtitle>{`or CASH PRICE ($${cashPrice})`}</ProductSubtitle>
+              <ProductSubtitle>{`or CASH PRICE (${cashPrice})`}</ProductSubtitle>
             </div>
             <div style={{ alignSelf: 'end' }}>
               <DayNumber>{duration}</DayNumber> <DayText>DAYS</DayText>

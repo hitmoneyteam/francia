@@ -59,7 +59,7 @@ const TimeLeft: React.FC<TimeLeftProps> = ({ hours, minutes, seconds, completed 
   }
 }
 
-export const TimeLeftTile: React.FC<{ timeLeft: number }> = ({ timeLeft }) => {
+export const TimeLeftTile: React.FC<{ timeLeft: number; startCountDown: boolean }> = ({ timeLeft, startCountDown }) => {
   const Title = styled.p`
     color: #c4c4c4;
     font-size: 12px;
@@ -79,7 +79,7 @@ export const TimeLeftTile: React.FC<{ timeLeft: number }> = ({ timeLeft }) => {
     <Tile height={64} padding="10px 20px">
       <Title>TIMELEFT</Title>
       <Content>
-        <Countdown date={Date.now() + timeLeft} renderer={TimeLeft} />
+        {startCountDown ? <Countdown date={Date.now() + timeLeft} renderer={TimeLeft} /> : <span>InActive</span>}
       </Content>
     </Tile>
   )
