@@ -11,6 +11,7 @@ import StakeModal, { StakeModalState } from './StakeModal'
 import apiResponse from './fakeData.json'
 
 export interface StakeCardsProps {
+  lotteryID: number
   productId: string
   productName: string
   imgUri: string
@@ -25,6 +26,12 @@ export interface StakeCardsProps {
   currencyToName: string
   currencyToIconUri: string
   currencyToAmount: string
+  minimumInvest: number
+  startCountDown: boolean
+  isWinnerDeclared: boolean
+  winner?: string
+  stakeClick?: any
+  unstakeClick?: any
 }
 
 const CardTitle = styled(Text)`
@@ -75,6 +82,7 @@ const ProductImg = styled.img`
 `
 
 const StakeCards: React.FC<StakeCardsProps> = ({
+  lotteryID,
   productId,
   productName,
   imgUri,
@@ -88,14 +96,18 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   currencyFromAmount,
   currencyToName,
   currencyToIconUri,
-  currencyToAmount
+  currencyToAmount,
+  minimumInvest,
+  startCountDown,
+  isWinnerDeclared,
+  winner,
+  stakeClick,
+  unstakeClick
 }) => {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
   const [confirmationData, setConfirmationData] = useState<StakeModalState>()
 
   const handleStakeNow = (itemId: string) => {
-    console.log(itemId)
-
     apiResponse.products.forEach(product => {
       if (product.productId === itemId) {
         setConfirmationData(product)
@@ -113,7 +125,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           <ProductImg src={require(`assets/images/${imgUri}`)} alt={productName} />
         </ProductImgWrapper>
         <TilesWrapper>
-          <TimeLeftTile timeLeft={timeleft} />
+          <TimeLeftTile timeLeft={timeleft} startCountDown={startCountDown} />
           <SmallTileContent height={64} title="ENTRIES" content={entries} />
           <SmallTileContent height={64} title="CASH PRICE" content={cashPrice} />
           <SmallTileContent height={64} title="DURATION" content={`${duration} Days`} />
@@ -131,9 +143,28 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           <PriceTag>Price</PriceTag>
           <PriceTag>{price}</PriceTag>
         </AutoRow>
-        <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(productId)}>
-          STAKE NOW
-        </Base>
+        {isWinnerDeclared ? <span>Winner: {winner}</span> : ''}
+
+        {!isWinnerDeclared ? (
+          <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(productId)}>
+            STAKE NOW
+          </Base>
+        ) : (
+          <Base
+            borderRadius="15px"
+            backgroundColor="#E2544C"
+            onClick={async () => {
+              try {
+                await unstakeClick()
+                alert('Unstacked Successfully')
+              } catch (e) {
+                console.log(e)
+              }
+            }}
+          >
+            UNSTAKE
+          </Base>
+        )}
       </StakeCard>
 
       {confirmationData && (
@@ -155,7 +186,14 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           minimumReceived={confirmationData.minimumReceived}
           priceImpact={confirmationData.priceImpact}
           liquidityProviderFee={confirmationData.liquidityProviderFee}
-          onConfirmStake={() => alert('Confirmed')}
+          onConfirmStake={async () => {
+            try {
+              await stakeClick()
+              alert('Stacked Successfully')
+            } catch (e) {
+              console.log(e)
+            }
+          }}
         />
       )}
     </>
