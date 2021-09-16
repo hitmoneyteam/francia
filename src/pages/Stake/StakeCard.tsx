@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 import styled from 'styled-components'
 import { Text } from 'rebass'
 import { StakeCard } from 'components/Card'
@@ -132,7 +133,11 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           <TimeLeftTile timeLeft={timeleft} startCountDown={startCountDown} stopCountDown={onCountDownStop} />
           <SmallTileContent height={64} title="ENTRIES" content={entries} />
           <SmallTileContent height={64} title="CASH PRICE" content={cashPrice} />
-          <SmallTileContent height={64} title="DURATION" content={`${duration} Days`} />
+          <SmallTileContent
+            height={64}
+            title="DURATION"
+            content={`${moment.duration(duration, 'seconds').days()} Day(s)`}
+          />
         </TilesWrapper>
         {/* <BigTileContent
           height={80}
