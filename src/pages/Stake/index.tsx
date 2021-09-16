@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import moment from 'moment'
 import { useActiveWeb3React } from '../../hooks'
 import styled from 'styled-components'
 import { Text } from 'rebass'
@@ -8,11 +9,16 @@ import StakeCard, { StakeCardsProps } from './StakeCard'
 // import { LotteryManager} from './hooks'
 import { useContract } from '../../hooks/useContract'
 import LpLotteryJSON from '../../contracts/LpLottery.json'
-import moment from 'moment'
-// import IPancakePairJSON from '../../contracts/IPancakePair.json'
+import BusdJSON from '../../contracts/Busd.json'
+// import SafemarsJSON from '../../contracts/Safemars.json'
+// import IPancakePairJSON from '../../contracts/PancakeClass.json'
 
-const address = '0xF67573c28cbbc24Ea4B3E6Ccf37F9c2ff0f4602a'
+const address = '0x505C9a4476F28a1Fcb1f3d209DfA50c428ec7eD1'
+const busdAddress = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'
+// const safemarsAddress = '0x3ad9594151886ce8538c1ff615efa2385a8c3a88'
 const LpLotteryABI = JSON.parse(JSON.stringify(LpLotteryJSON)).abi
+const BusdABI = JSON.parse(JSON.stringify(BusdJSON)).abi
+// const SafemarsABI = JSON.parse(JSON.stringify(SafemarsJSON)).abi
 // const IPancakePairABI = JSON.parse(JSON.stringify(IPancakePairJSON)).abi
 
 const Title = styled(Text)`
@@ -31,7 +37,11 @@ function Stake(props: any) {
   const [lotteries, setLotteries] = useState([])
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const [originalMinimumInvestBusd, setOriginalMinimumInvestBusd] = useState(0)
+  // const [originalMinimumInvestSafemars, setOriginalMinimumInvestSafemars] = useState('')
   const contract = useContract(address, LpLotteryABI)
+  const busdContract = useContract(busdAddress, BusdABI)
+  // const safemarsContract = useContract(safemarsAddress, SafemarsABI)
   // const pancakeswap = useContract(address, IPancakePairABI)
   const { account } = useActiveWeb3React()
 
@@ -64,8 +74,12 @@ function Stake(props: any) {
           // const safemarsEq = await pancakeswap?.price0CumulativeLast()
           // const busdEq = await pancakeswap?.price1CumulativeLast()
           // console.log(`${safemarsEq}`)
+          // console.log(pancakeswap?._addLiquidity(_mininumInvest))
+          setOriginalMinimumInvestBusd(_mininumInvest)
           _price = _price / 1e18
           _mininumInvest = _mininumInvest / 1e18
+          // setOriginalMinimumInvestSafemars('538380000000000000')
+
           const _entries = _price / ((_mininumInvest * 4) / 100)
 
           if (_entriesRequired === 0) {
@@ -154,7 +168,15 @@ function Stake(props: any) {
                   startCountDown={startCountDown}
                   isWinnerDeclared={isWinnerDeclared}
                   winner={winner}
-                  stakeClick={async () => console.log(await contract?.participateInSafemars(lotteryID, minimumInvest))}
+                  stakeBusd={async () => {
+                    await busdContract?.approve(address, originalMinimumInvestBusd)
+                    await contract?.participateInBusd(lotteryID, originalMinimumInvestBusd)
+                  }}
+                  // stakeSafemars={async () => {
+                  //   await safemarsContract?.setSwapAndLiquifyEnabled(false)
+                  //   await safemarsContract?.approve(address, originalMinimumInvestSafemars)
+                  //   await contract?.participateInSafemars(lotteryID, originalMinimumInvestSafemars)
+                  // }}
                   unstakeClick={async () => console.log(await contract?.exit(lotteryID))}
                 />
               )

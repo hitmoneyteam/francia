@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "lotteryID": 1,
+      "lotteryID": 0,
       "productId": "iphone",
       "productName": "IPHONE 12 PRO MAX",
       "imgUri": "iphone.png",
