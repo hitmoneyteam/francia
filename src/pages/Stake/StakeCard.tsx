@@ -32,6 +32,7 @@ export interface StakeCardsProps {
   startCountDown: boolean
   isWinnerDeclared: boolean
   winner?: string
+  winnerURL?: string
   stakeBusd?: any
   // stakeSafemars?: any
   unstakeClick?: any
@@ -84,6 +85,15 @@ const ProductImg = styled.img`
   height: 180px;
 `
 
+const WinnerText = styled(Text)`
+  font-weight: bold;
+`
+
+const WinnerAddress = styled(Text)`
+  font-weight: bold;
+  font-size: 18px;
+`
+
 const StakeCards: React.FC<StakeCardsProps> = ({
   lotteryID,
   productId,
@@ -105,6 +115,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   startCountDown,
   isWinnerDeclared,
   winner,
+  winnerURL,
   stakeBusd,
   // stakeSafemars,
   unstakeClick
@@ -158,11 +169,23 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           currencyFromAmount={currencyFromAmount}
           currencyToAmount={currencyToAmount}
         />
+
         <AutoRow justify="space-around" style={{ marginTop: '10px', marginBottom: '20px' }}>
-          {/* <PriceTag>Price</PriceTag>
-          <PriceTag>{price}</PriceTag> */}
+          {isWinnerDeclared ? (
+            <>
+              <WinnerText>Winner:</WinnerText>
+              <WinnerAddress>
+                <a target="_blank" rel="noopener noreferrer" href={winnerURL}>
+                  {winner}
+                </a>
+              </WinnerAddress>
+            </>
+          ) : (
+            ''
+          )}
         </AutoRow>
-        {isWinnerDeclared ? <span>Winner: {winner}</span> : ''}
+
+        <AutoRow justify="space-around" style={{ marginTop: '10px', marginBottom: '10px' }}></AutoRow>
 
         {!isWinnerDeclared ? (
           !startCountDown ? (
@@ -180,6 +203,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
               try {
                 await unstakeClick()
                 alert('Unstacked Successfully')
+                window.location.reload(false)
               } catch (e) {
                 console.log(e)
               }
@@ -214,6 +238,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
             try {
               await stakeBusd()
               alert('Stacked Successfully')
+              window.location.reload(false)
             } catch (e) {
               alert(e.data.message)
               console.log(e)

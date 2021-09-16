@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 // import { X, ArrowDown } from 'react-feather'
 import { X } from 'react-feather'
 import styled from 'styled-components'
@@ -222,7 +223,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               <ProductSubtitle>or CASH PRICE ({cashPrice}) </ProductSubtitle>
             </div>
             <div style={{ alignSelf: 'end' }}>
-              <DayNumber>{duration}</DayNumber> <DayText>DAYS</DayText>
+              <DayNumber>{moment.duration(duration, 'seconds').days()}</DayNumber> <DayText>DAY(S)</DayText>
             </div>
           </HighlightWrapper>
           <ImageWrapper>
