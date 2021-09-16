@@ -27,6 +27,7 @@ export interface StakeCardsProps {
   currencyToName: string
   currencyToIconUri: string
   currencyToAmount: string
+  onCountDownStop?: any
   startCountDown: boolean
   isWinnerDeclared: boolean
   winner?: string
@@ -99,6 +100,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   currencyToIconUri,
   currencyToAmount,
   minimumInvest,
+  onCountDownStop,
   startCountDown,
   isWinnerDeclared,
   winner,
@@ -127,7 +129,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           <ProductImg src={require(`assets/images/${imgUri}`)} alt={productName} />
         </ProductImgWrapper>
         <TilesWrapper>
-          <TimeLeftTile timeLeft={timeleft} startCountDown={startCountDown} />
+          <TimeLeftTile timeLeft={timeleft} startCountDown={startCountDown} stopCountDown={onCountDownStop} />
           <SmallTileContent height={64} title="ENTRIES" content={entries} />
           <SmallTileContent height={64} title="CASH PRICE" content={cashPrice} />
           <SmallTileContent height={64} title="DURATION" content={`${duration} Days`} />

@@ -176,6 +176,9 @@ function Stake(props: any) {
                   startCountDown={startCountDown}
                   isWinnerDeclared={isWinnerDeclared}
                   winner={winner}
+                  onCountDownStop={async () => {
+                    await structure()
+                  }}
                   stakeBusd={async () => {
                     await busdContract?.approve(address, originalMinimumInvestBusd)
                     await contract?.participateInBusd(lotteryID, originalMinimumInvestBusd)
