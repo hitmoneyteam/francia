@@ -30,7 +30,8 @@ export interface StakeCardsProps {
   startCountDown: boolean
   isWinnerDeclared: boolean
   winner?: string
-  stakeClick?: any
+  stakeBusd?: any
+  // stakeSafemars?: any
   unstakeClick?: any
 }
 
@@ -101,7 +102,8 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   startCountDown,
   isWinnerDeclared,
   winner,
-  stakeClick,
+  stakeBusd,
+  // stakeSafemars,
   unstakeClick
 }) => {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
@@ -186,14 +188,24 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           minimumReceived={confirmationData.minimumReceived}
           priceImpact={confirmationData.priceImpact}
           liquidityProviderFee={confirmationData.liquidityProviderFee}
-          onConfirmStake={async () => {
+          onConfirmBusdStake={async () => {
             try {
-              await stakeClick()
+              await stakeBusd()
               alert('Stacked Successfully')
+              window.location.reload()
             } catch (e) {
+              alert(e.data.message)
               console.log(e)
             }
           }}
+          // onConfirmSafemarsStake={async () => {
+          //   try {
+          //     await stakeSafemars()
+          //     alert('Stacked Successfully')
+          //   } catch (e) {
+          //     console.log(e)
+          //   }
+          // }}
         />
       )}
     </>
