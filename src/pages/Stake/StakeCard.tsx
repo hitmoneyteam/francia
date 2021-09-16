@@ -180,6 +180,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
               try {
                 await unstakeClick()
                 alert('Unstacked Successfully')
+                window.location.reload(false)
               } catch (e) {
                 console.log(e)
               }
@@ -214,6 +215,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
             try {
               await stakeBusd()
               alert('Stacked Successfully')
+              window.location.reload(false)
             } catch (e) {
               alert(e.data.message)
               console.log(e)

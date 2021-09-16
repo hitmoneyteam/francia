@@ -190,7 +190,6 @@ function Stake(props: any) {
                   stakeBusd={async () => {
                     await busdContract?.approve(address, originalMinimumInvestBusd)
                     await contract?.participateInBusd(lotteryID, originalMinimumInvestBusd)
-                    await structure()
                   }}
                   // stakeSafemars={async () => {
                   //   await safemarsContract?.setSwapAndLiquifyEnabled(false)
