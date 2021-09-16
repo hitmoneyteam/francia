@@ -75,12 +75,16 @@ function Stake(props: any) {
           // const busdEq = await pancakeswap?.price1CumulativeLast()
           // console.log(`${safemarsEq}`)
           // console.log(pancakeswap?._addLiquidity(_mininumInvest))
+          // console.log(`Lottery ID = ${_lottery.lotteryID} price = ${_price} minimumInvest = ${_mininumInvest}`)
           setOriginalMinimumInvestBusd(_mininumInvest)
           _price = _price / 1e18
           _mininumInvest = _mininumInvest / 1e18
           // setOriginalMinimumInvestSafemars('538380000000000000')
 
           const _entries = _price / ((_mininumInvest * 4) / 100)
+
+          // console.log('Entries ' + _entries)
+          // console.log('Entries required ' + _entriesRequired)
 
           if (_entriesRequired === 0) {
             const _lastEntryTime = await contract?.getTimestampForLastEntry(lottery.lotteryID)
@@ -102,7 +106,7 @@ function Stake(props: any) {
               }
             }
           }
-
+          lottery.currencyToAmount = _mininumInvest
           lottery.minimumInvest = _mininumInvest
           lottery.entries = `${_entries}`
           lottery.cashPrice = `$${_price}`

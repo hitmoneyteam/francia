@@ -138,8 +138,8 @@ export const BigTileContent: React.FC<BigTileContentProps> = ({
   `
   return (
     <Tile height={height} width={width} padding="15px 20px" margin="15px 0px 0px 0px">
-      <AutoRow justify="space-between">
-        <Title>
+      <AutoRow justify="center">
+        {/* <Title>
           <img
             src={require(`assets/images/${currencyFromIconUri}`)}
             alt={currencyFromName}
@@ -147,15 +147,15 @@ export const BigTileContent: React.FC<BigTileContentProps> = ({
             height="18px"
           />
           <span style={{ marginLeft: '7px' }}>{currencyFromName}</span>
-        </Title>
+        </Title> */}
         <Title>
           <img src={require(`assets/images/${currencyToIconUri}`)} alt={currencyToName} width="18px" height="18px" />
           <span style={{ marginLeft: '7px' }}>{currencyToName}</span>
         </Title>
       </AutoRow>
-      <AutoRow justify="space-between">
-        <Content>{currencyFromAmount}</Content>
-        <Content> = </Content>
+      <AutoRow justify="center">
+        {/* <Content>{currencyFromAmount}</Content>
+        <Content> = </Content> */}
         <Content>{currencyToAmount}</Content>
       </AutoRow>
     </Tile>

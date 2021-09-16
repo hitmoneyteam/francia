@@ -19,6 +19,46 @@
       "liquidityProviderFee": "2022170 SAFEMARS",
       "cashPrice": "",
       "entries": ""
+    },
+    {
+      "lotteryID": 3,
+      "productId": "ipad",
+      "productName": "12.9 INCH IPAD PRO",
+      "imgUri": "ipad.png",
+      "duration": "1",
+      "price": "4722860 SAFEMARS per BUSD",
+      "currencyFromName": "SAFEMARS",
+      "currencyFromIconUri": "safemars-logo.svg",
+      "currencyFromAmount": "28900…",
+      "currencyToName": "BUSD",
+      "currencyToIconUri": "busd.svg",
+      "currencyToAmount": "50",
+      "productDescription": "WIN THIS FANTASTIC IPAD BY STAKING IN THIS. ",
+      "minimumReceived": "0.4587 BUSD",
+      "priceImpact": "<0.01%",
+      "liquidityProviderFee": "207822170 SAFEMARS",
+      "cashPrice": "",
+      "entries": ""
+    },
+    {
+      "lotteryID": 4,
+      "productId": "watch",
+      "productName": "SAMSUMG GALAXI SMART WATCH ",
+      "imgUri": "watch.png",
+      "duration": "1",
+      "price": "4722860 SAFEMARS per BUSD",
+      "currencyFromName": "SAFEMARS",
+      "currencyFromIconUri": "safemars-logo.svg",
+      "currencyFromAmount": "28900…",
+      "currencyToName": "BUSD",
+      "currencyToIconUri": "busd.svg",
+      "currencyToAmount": "25",
+      "productDescription": "INCREDIBLE SMART WATCH FOR YOU FOR PARTICIPATING IN THIS LOTTERY. ",
+      "minimumReceived": "0.3587 BUSD",
+      "priceImpact": "<0.01%",
+      "liquidityProviderFee": "2022170 SAFEMARS",
+      "cashPrice": "",
+      "entries": ""
     }
   ]
 }
