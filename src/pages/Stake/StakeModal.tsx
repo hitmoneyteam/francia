@@ -1,5 +1,6 @@
 import React from 'react'
-import { X, ArrowDown } from 'react-feather'
+// import { X, ArrowDown } from 'react-feather'
+import { X } from 'react-feather'
 import styled from 'styled-components'
 import { Text } from 'rebass'
 import Modal from 'components/Modal'
@@ -13,6 +14,7 @@ export interface StakeModalState {
   productDescription: string
   imgUri: string
   cashPrice: string
+  minimumInvest?: number
   duration: string
   currencyFromName: string
   currencyFromIconUri: string
@@ -70,9 +72,9 @@ const DescriptionWrapper = styled.div`
   grid-row-end: 3;
 `
 
-const AutoRowMargin = styled(AutoRow)`
-  margin-top: 10px;
-`
+// const AutoRowMargin = styled(AutoRow)`
+//   margin-top: 10px;
+// `
 
 const ConfirmStakeText = styled(Text)`
   color: #ffffff;
@@ -83,19 +85,19 @@ const ConfirmStakeText = styled(Text)`
   }
 `
 
-const CoinText = styled(Text)`
-  color: #ffffff;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  @media (max-width: 479px) {
-    font-size: 18px;
-  }
-`
+// const CoinText = styled(Text)`
+//   color: #ffffff;
+//   font-size: 22px;
+//   display: flex;
+//   align-items: center;
+//   @media (max-width: 479px) {
+//     font-size: 18px;
+//   }
+// `
 
-const CoinTextBold = styled(CoinText)`
-  font-weight: 500;
-`
+// const CoinTextBold = styled(CoinText)`
+//   font-weight: 500;
+// `
 
 const ProductTitle = styled(Text)`
   color: #a77439;
@@ -140,20 +142,20 @@ const DayText = styled.span`
   }
 `
 
-const ProductInfo = styled(Text)`
-  color: #bcbcbc;
-  font-size: 14px;
-  @media (max-width: 479px) {
-    font-size: 13px;
-  }
-  @media (max-width: 360px) {
-    font-size: 11px;
-  }
-`
-const ProductInfoBold = styled(ProductInfo)`
-  color: #ffffff;
-  font-weight: bold;
-`
+// const ProductInfo = styled(Text)`
+//   color: #bcbcbc;
+//   font-size: 14px;
+//   @media (max-width: 479px) {
+//     font-size: 13px;
+//   }
+//   @media (max-width: 360px) {
+//     font-size: 11px;
+//   }
+// `
+// const ProductInfoBold = styled(ProductInfo)`
+//   color: #ffffff;
+//   font-weight: bold;
+// `
 
 const StyledCloseIcon = styled(X)`
   height: 20px;
@@ -174,6 +176,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   productDescription,
   imgUri,
   cashPrice,
+  minimumInvest,
   duration,
   currencyFromName,
   currencyFromIconUri,
@@ -197,7 +200,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <StyledCloseIcon onClick={onDismiss} />
           </ConfirmStakeText>
         </AutoRow>
-        <AutoRow justify="space-between" style={{ marginTop: '20px', marginBottom: '10px' }}>
+        {/* <AutoRow justify="space-between" style={{ marginTop: '20px', marginBottom: '10px' }}>
           <CoinText>
             <img src={require(`assets/images/${currencyFromIconUri}`)} alt="Safemars" width="24px" height="24px" />
             <span style={{ marginLeft: '7px' }}>{currencyFromAmount}</span>
@@ -211,12 +214,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <span style={{ marginLeft: '7px' }}>{currencyToAmount}</span>
           </CoinText>
           <CoinTextBold>{currencyToName}</CoinTextBold>
-        </AutoRow>
+        </AutoRow> */}
         <ProductBox>
           <HighlightWrapper>
             <div style={{ alignSelf: 'center' }}>
               <ProductTitle>{productName}</ProductTitle>
-              <ProductSubtitle>{`or CASH PRICE (${cashPrice})`}</ProductSubtitle>
+              <ProductSubtitle>or CASH PRICE ({cashPrice}) </ProductSubtitle>
             </div>
             <div style={{ alignSelf: 'end' }}>
               <DayNumber>{duration}</DayNumber> <DayText>DAYS</DayText>
@@ -230,7 +233,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </DescriptionWrapper>
         </ProductBox>
 
-        <div style={{ margin: '15px 0px' }}>
+        {/* <div style={{ margin: '15px 0px' }}>
           <AutoRowMargin justify="space-between">
             <ProductInfo>Price</ProductInfo>
             <ProductInfoBold>{price}</ProductInfoBold>
@@ -247,9 +250,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <ProductInfo>Liquidity Provider Fee</ProductInfo>
             <ProductInfoBold>{liquidityProviderFee}</ProductInfoBold>
           </AutoRowMargin>
-        </div>
+        </div> */}
         <Base borderRadius="15px" backgroundColor="#E2544C" onClick={onConfirmBusdStake}>
-          CONFIRM STAKE (BUSD)
+          CONFIRM STAKE ({minimumInvest} BUSD)
         </Base>
         {/* <Base borderRadius="15px" backgroundColor="#E2544C" onClick={onConfirmSafemarsStake}>
           CONFIRM STAKE (SAFEMARS)

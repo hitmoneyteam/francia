@@ -18,6 +18,7 @@ export interface StakeCardsProps {
   timeleft: number
   entries: string
   cashPrice: string
+  minimumInvest?: number
   duration: string
   price: string
   currencyFromName: string
@@ -26,7 +27,6 @@ export interface StakeCardsProps {
   currencyToName: string
   currencyToIconUri: string
   currencyToAmount: string
-  minimumInvest: number
   startCountDown: boolean
   isWinnerDeclared: boolean
   winner?: string
@@ -58,14 +58,14 @@ const CardDescription = styled(Text)`
   }
 `
 
-const PriceTag = styled(Text)`
-  color: #e8e8e8;
-  margin: 10px;
-  font-size: 12px;
-  @media (max-width: 479px) {
-    font-size: 10px;
-  }
-`
+// const PriceTag = styled(Text)`
+//   color: #e8e8e8;
+//   margin: 10px;
+//   font-size: 12px;
+//   @media (max-width: 479px) {
+//     font-size: 10px;
+//   }
+// `
 const TilesWrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto;
@@ -132,6 +132,16 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           <SmallTileContent height={64} title="CASH PRICE" content={cashPrice} />
           <SmallTileContent height={64} title="DURATION" content={`${duration} Days`} />
         </TilesWrapper>
+        {/* <BigTileContent
+          height={80}
+          currencyFromName={currencyFromName}
+          currencyFromIconUri={currencyFromIconUri}
+          currencyToName={currencyToName}
+          currencyToIconUri={currencyToIconUri}
+          currencyFromAmount={currencyFromAmount}
+          currencyToAmount={currencyToAmount}
+        /> */}
+
         <BigTileContent
           height={80}
           currencyFromName={currencyFromName}
@@ -142,8 +152,8 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           currencyToAmount={currencyToAmount}
         />
         <AutoRow justify="space-around" style={{ marginTop: '10px', marginBottom: '20px' }}>
-          <PriceTag>Price</PriceTag>
-          <PriceTag>{price}</PriceTag>
+          {/* <PriceTag>Price</PriceTag>
+          <PriceTag>{price}</PriceTag> */}
         </AutoRow>
         {isWinnerDeclared ? <span>Winner: {winner}</span> : ''}
 
@@ -176,7 +186,8 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           productName={confirmationData.productName}
           productDescription={confirmationData.productDescription}
           imgUri={confirmationData.imgUri}
-          cashPrice={confirmationData.cashPrice}
+          cashPrice={cashPrice}
+          minimumInvest={minimumInvest}
           duration={confirmationData.duration}
           price={confirmationData.price}
           currencyFromName={confirmationData.currencyFromName}
