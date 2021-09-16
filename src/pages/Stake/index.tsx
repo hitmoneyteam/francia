@@ -45,79 +45,83 @@ function Stake(props: any) {
   // const pancakeswap = useContract(address, IPancakePairABI)
   const { account } = useActiveWeb3React()
 
-  useEffect(() => {
-    ;(async () => {
-      if (!loading) return
-      if (!account) {
-        setMessage('No wallet connected')
-        return
-      }
+  async function structure() {
+    if (!loading) return
+    if (!account) {
+      setMessage('No wallet connected')
+      return
+    }
 
-      setMessage('Loading..')
+    setMessage('Loading..')
 
-      // console.log(pancakeswap)
+    // console.log(pancakeswap)
 
-      let _lotteries = [] as any
-      _lotteries = await Promise.all(
-        apiResponse.products.map(async _lottery => {
-          const lottery = {
-            ..._lottery,
-            minimumInvest: '',
-            startCountDown: false,
-            isWinnerDeclared: false,
-            winner: '',
-            timeleft: 0
-          }
-          let _price = await contract?.getCashPrice(lottery.lotteryID)
-          let _mininumInvest = await contract?.getMinimumInvest(lottery.lotteryID)
-          const _entriesRequired = await contract?.getEntriesRequired(lottery.lotteryID)
-          // const safemarsEq = await pancakeswap?.price0CumulativeLast()
-          // const busdEq = await pancakeswap?.price1CumulativeLast()
-          // console.log(`${safemarsEq}`)
-          // console.log(pancakeswap?._addLiquidity(_mininumInvest))
-          // console.log(`Lottery ID = ${_lottery.lotteryID} price = ${_price} minimumInvest = ${_mininumInvest}`)
-          setOriginalMinimumInvestBusd(_mininumInvest)
-          _price = _price / 1e18
-          _mininumInvest = _mininumInvest / 1e18
-          // setOriginalMinimumInvestSafemars('538380000000000000')
+    let _lotteries = [] as any
+    _lotteries = await Promise.all(
+      apiResponse.products.map(async _lottery => {
+        const lottery = {
+          ..._lottery,
+          minimumInvest: '',
+          startCountDown: false,
+          isWinnerDeclared: false,
+          winner: '',
+          timeleft: 0
+        }
+        let _price = await contract?.getCashPrice(lottery.lotteryID)
+        let _mininumInvest = await contract?.getMinimumInvest(lottery.lotteryID)
+        const _entriesRequired = await contract?.getEntriesRequired(lottery.lotteryID)
+        // const safemarsEq = await pancakeswap?.price0CumulativeLast()
+        // const busdEq = await pancakeswap?.price1CumulativeLast()
+        // console.log(`${safemarsEq}`)
+        // console.log(pancakeswap?._addLiquidity(_mininumInvest))
+        // console.log(`Lottery ID = ${_lottery.lotteryID} price = ${_price} minimumInvest = ${_mininumInvest}`)
+        setOriginalMinimumInvestBusd(_mininumInvest)
+        _price = _price / 1e18
+        _mininumInvest = _mininumInvest / 1e18
+        // setOriginalMinimumInvestSafemars('538380000000000000')
 
-          const _entries = _price / ((_mininumInvest * 4) / 100)
+        // const _entries = _price / ((_mininumInvest * 4) / 100)
 
-          // console.log('Entries ' + _entries)
-          // console.log('Entries required ' + _entriesRequired)
+        // console.log('Entries ' + _entries)
+        // console.log('Entries required ' + _entriesRequired)
 
-          if (_entriesRequired === 0) {
-            const _lastEntryTime = await contract?.getTimestampForLastEntry(lottery.lotteryID)
-            const _duration = moment
-              .utc(_lastEntryTime)
-              .add(lottery.duration, 'days')
-              .local()
-            const now = moment()
-            if (now.isBefore(_duration)) {
-              lottery.timeleft = _duration.diff(now)
-              lottery.startCountDown = true
-            } else {
-              await contract?.declareWinner(lottery.lotteryID)
-              const _isWinnerDeclared = await contract?.lotteryWinnerDeclared(lottery.lotteryID)
-              if (_isWinnerDeclared) {
-                const _winner = await contract?.viewWinner(lottery.lotteryID)
-                lottery.winner = _winner
-                lottery.isWinnerDeclared = true
-              }
+        if (_entriesRequired == 0) {
+          const _lastEntryTime = await contract?.getTimestampForLastEntry(lottery.lotteryID)
+          const _duration = moment
+            .utc(_lastEntryTime)
+            .add(lottery.duration, 'days')
+            .local()
+          const now = moment()
+          if (now.isBefore(_duration)) {
+            lottery.timeleft = _duration.diff(now)
+            lottery.startCountDown = true
+          } else {
+            await contract?.declareWinner(lottery.lotteryID)
+            const _isWinnerDeclared = await contract?.lotteryWinnerDeclared(lottery.lotteryID)
+            if (_isWinnerDeclared) {
+              const _winner = await contract?.viewWinner(lottery.lotteryID)
+              lottery.winner = _winner
+              lottery.isWinnerDeclared = true
             }
           }
-          lottery.currencyToAmount = _mininumInvest
-          lottery.minimumInvest = _mininumInvest
-          lottery.entries = `${_entries}`
-          lottery.cashPrice = `$${_price}`
-          // lottery.currencyFromAmount = safemarsEq
-          // lottery.currencyToAmount = busdEq
-          return lottery
-        })
-      )
+        }
+        lottery.currencyToAmount = _mininumInvest
+        lottery.minimumInvest = _mininumInvest
+        lottery.entries = `${_entriesRequired}`
+        lottery.cashPrice = `$${_price}`
+        // lottery.currencyFromAmount = safemarsEq
+        // lottery.currencyToAmount = busdEq
+        return lottery
+      })
+    )
 
-      setLotteries(_lotteries)
-      setLoading(false)
+    setLotteries(_lotteries)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      await structure()
     })()
   })
 
@@ -175,6 +179,7 @@ function Stake(props: any) {
                   stakeBusd={async () => {
                     await busdContract?.approve(address, originalMinimumInvestBusd)
                     await contract?.participateInBusd(lotteryID, originalMinimumInvestBusd)
+                    await structure()
                   }}
                   // stakeSafemars={async () => {
                   //   await safemarsContract?.setSwapAndLiquifyEnabled(false)

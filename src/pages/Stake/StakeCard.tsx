@@ -158,9 +158,13 @@ const StakeCards: React.FC<StakeCardsProps> = ({
         {isWinnerDeclared ? <span>Winner: {winner}</span> : ''}
 
         {!isWinnerDeclared ? (
-          <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(productId)}>
-            STAKE NOW
-          </Base>
+          !startCountDown ? (
+            <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(productId)}>
+              STAKE NOW
+            </Base>
+          ) : (
+            <span></span>
+          )
         ) : (
           <Base
             borderRadius="15px"
@@ -203,7 +207,6 @@ const StakeCards: React.FC<StakeCardsProps> = ({
             try {
               await stakeBusd()
               alert('Stacked Successfully')
-              window.location.reload()
             } catch (e) {
               alert(e.data.message)
               console.log(e)
