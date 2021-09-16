@@ -73,6 +73,7 @@ function Stake(props: any) {
           startCountDown: false,
           isWinnerDeclared: false,
           winner: '',
+          winnerURL: '',
           timeleft: 0
         }
         let _price = await contract?.getCashPrice(lottery.lotteryID)
@@ -104,11 +105,14 @@ function Stake(props: any) {
             lottery.timeleft = _duration.diff(now)
             lottery.startCountDown = true
           } else {
-            await contract?.declareWinner(lottery.lotteryID)
+            // await contract?.declareWinner(lottery.lotteryID)
             const _isWinnerDeclared = await contract?.lotteryWinnerDeclared(lottery.lotteryID)
             if (_isWinnerDeclared) {
               const _winner = await contract?.viewWinner(lottery.lotteryID)
-              lottery.winner = _winner
+              let firstfourstr = _winner.substring(0, 5)
+              let lastfourstr = _winner.substring(_winner.length - 5)
+              lottery.winner = `${firstfourstr}...${lastfourstr}`
+              lottery.winnerURL = `https://bscscan.com/address/${_winner}`
               lottery.isWinnerDeclared = true
             }
           }
@@ -160,7 +164,8 @@ function Stake(props: any) {
               minimumInvest,
               startCountDown,
               isWinnerDeclared,
-              winner
+              winner,
+              winnerURL
             }: StakeCardsProps) => {
               return (
                 <StakeCard
@@ -184,8 +189,9 @@ function Stake(props: any) {
                   startCountDown={startCountDown}
                   isWinnerDeclared={isWinnerDeclared}
                   winner={winner}
+                  winnerURL={winnerURL}
                   onCountDownStop={async () => {
-                    await structure()
+                    window.location.reload(false)
                   }}
                   stakeBusd={async () => {
                     await busdContract?.approve(address, originalMinimumInvestBusd)
