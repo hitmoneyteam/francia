@@ -114,8 +114,8 @@ function Stake(props: any) {
             const _isWinnerDeclared = await contract?.lotteryWinnerDeclared(lottery.lotteryID)
             if (_isWinnerDeclared) {
               const _winner = await contract?.viewWinner(lottery.lotteryID)
-              let firstfourstr = _winner.substring(0, 5)
-              let lastfourstr = _winner.substring(_winner.length - 5)
+              const firstfourstr = _winner.substring(0, 5)
+              const lastfourstr = _winner.substring(_winner.length - 5)
               lottery.winner = `${firstfourstr}...${lastfourstr}`
               lottery.winnerURL = `https://bscscan.com/address/${_winner}`
               lottery.isWinnerDeclared = true

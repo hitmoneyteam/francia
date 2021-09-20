@@ -339,9 +339,9 @@ export default function Header() {
           <StyledNavLink id={`mars-mission-nav-link`} to={'/mars-mission'}>
             {'Mars Mission'}
           </StyledNavLink>
-          <StyledNavLink id={`game-nav-link`} to={'/game'}>
-            {'Game'}
-          </StyledNavLink>
+          <StyledExternalLink id={`game-nav-link`} href="https://safemars.casino">
+            Casino <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
           <StyledExternalLink
             id={`charts-nav-link`}
             href="https://dex.guru/token/0x3ad9594151886ce8538c1ff615efa2385a8c3a88-bsc"
