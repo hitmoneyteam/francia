@@ -34,7 +34,7 @@ export interface StakeCardsProps {
   winner?: string
   winnerURL?: string
   stakeBusd?: any
-  // stakeSafemars?: any
+  stakeSafemars?: any
   unstakeClick?: any
 }
 
@@ -117,7 +117,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   winner,
   winnerURL,
   stakeBusd,
-  // stakeSafemars,
+  stakeSafemars,
   unstakeClick
 }) => {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
@@ -196,19 +196,7 @@ const StakeCards: React.FC<StakeCardsProps> = ({
             <span></span>
           )
         ) : (
-          <Base
-            borderRadius="15px"
-            backgroundColor="#E2544C"
-            onClick={async () => {
-              try {
-                await unstakeClick()
-                alert('Unstacked Successfully')
-                window.location.reload(false)
-              } catch (e) {
-                console.log(e)
-              }
-            }}
-          >
+          <Base borderRadius="15px" backgroundColor="#E2544C" onClick={async () => await unstakeClick()}>
             UNSTAKE
           </Base>
         )}
@@ -234,24 +222,8 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           minimumReceived={confirmationData.minimumReceived}
           priceImpact={confirmationData.priceImpact}
           liquidityProviderFee={confirmationData.liquidityProviderFee}
-          onConfirmBusdStake={async () => {
-            try {
-              await stakeBusd()
-              alert('Stacked Successfully')
-              window.location.reload(false)
-            } catch (e) {
-              alert(e.data.message)
-              console.log(e)
-            }
-          }}
-          // onConfirmSafemarsStake={async () => {
-          //   try {
-          //     await stakeSafemars()
-          //     alert('Stacked Successfully')
-          //   } catch (e) {
-          //     console.log(e)
-          //   }
-          // }}
+          onConfirmBusdStake={async () => await stakeBusd()}
+          onConfirmSafemarsStake={async () => await stakeSafemars()}
         />
       )}
     </>

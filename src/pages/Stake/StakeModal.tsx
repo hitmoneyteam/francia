@@ -33,7 +33,7 @@ interface StakeModalProps extends StakeModalState {
   isOpen: boolean
   onDismiss: () => void
   onConfirmBusdStake: () => void
-  // onConfirmSafemarsStake: () => void
+  onConfirmSafemarsStake: () => void
 }
 
 const ModalContentWrapper = styled.div`
@@ -189,8 +189,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
   minimumReceived,
   priceImpact,
   liquidityProviderFee,
-  onConfirmBusdStake
-  // onConfirmSafemarsStake
+  onConfirmBusdStake,
+  onConfirmSafemarsStake
 }) => {
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={100}>
@@ -255,9 +255,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <Base borderRadius="15px" backgroundColor="#E2544C" onClick={onConfirmBusdStake}>
           CONFIRM STAKE ({minimumInvest} BUSD)
         </Base>
-        {/* <Base borderRadius="15px" backgroundColor="#E2544C" onClick={onConfirmSafemarsStake}>
+        <Base borderRadius="15px" backgroundColor="#000" marginTop="10px" onClick={onConfirmSafemarsStake}>
           CONFIRM STAKE (SAFEMARS)
-        </Base> */}
+        </Base>
       </ModalContentWrapper>
     </Modal>
   )
