@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AutoRow } from 'components/Row'
+import { countdown } from './enum'
 // import Busd from 'assets/svg/busd.svg'
 import Countdown from 'react-countdown'
 
@@ -59,7 +60,7 @@ const TimeLeft: React.FC<TimeLeftProps> = ({ hours, minutes, seconds, completed 
   }
 }
 
-export const TimeLeftTile: React.FC<{ timeLeft: number; startCountDown: boolean; stopCountDown: any }> = ({
+export const TimeLeftTile: React.FC<{ timeLeft: number; startCountDown: number; stopCountDown: any }> = ({
   timeLeft,
   startCountDown,
   stopCountDown
@@ -83,11 +84,13 @@ export const TimeLeftTile: React.FC<{ timeLeft: number; startCountDown: boolean;
     <Tile height={64} padding="10px 20px">
       <Title>TIMELEFT</Title>
       <Content>
-        {startCountDown ? (
+        {startCountDown == countdown.INACTIVE ? <span>InActive</span> : <></>}
+        {startCountDown == countdown.STARTED ? (
           <Countdown date={Date.now() + timeLeft} renderer={TimeLeft} onStop={stopCountDown} />
         ) : (
-          <span>InActive</span>
+          <></>
         )}
+        {startCountDown == countdown.FINISHED ? <span>Finished</span> : <></>}
       </Content>
     </Tile>
   )

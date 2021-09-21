@@ -8,6 +8,7 @@ import apiResponse from './fakeData.json'
 import StakeCard, { StakeCardsProps } from './StakeCard'
 // import { LotteryManager} from './hooks'
 import { useContract } from '../../hooks/useContract'
+import { countdown } from './enum'
 import LpLotteryJSON from '../../contracts/LpLottery.json'
 import BusdJSON from '../../contracts/Busd.json'
 import SafemarsJSON from '../../contracts/Safemars.json'
@@ -81,7 +82,7 @@ function Stake(props: any) {
         const lottery = {
           ..._lottery,
           minimumInvest: '',
-          startCountDown: false,
+          startCountDown: countdown.INACTIVE,
           isWinnerDeclared: false,
           winner: '',
           winnerURL: '',
@@ -105,11 +106,13 @@ function Stake(props: any) {
             .utc(_lastEntryTime)
             .add(lottery.duration, 'seconds')
             .local()
+          // console.log(BigInt(_lastEntryTime))
           const now = moment()
           if (now.isBefore(_duration)) {
             lottery.timeleft = _duration.diff(now)
-            lottery.startCountDown = true
+            lottery.startCountDown = countdown.STARTED
           } else {
+            lottery.startCountDown = countdown.FINISHED
             // await contract?.declareWinner(lottery.lotteryID)
             const _isWinnerDeclared = await contract?.lotteryWinnerDeclared(lottery.lotteryID)
             if (_isWinnerDeclared) {
