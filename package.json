@@ -128,6 +128,7 @@
     "moment": "^2.29.1",
     "react-countdown": "^2.3.2",
     "react-usestateref": "^1.0.5",
-    "web3": "^1.5.2"
+    "web3": "^1.5.2",
+    "yarn": "^1.22.11"
   }
 }
