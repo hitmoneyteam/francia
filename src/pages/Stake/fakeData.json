@@ -39,26 +39,6 @@
       "liquidityProviderFee": "207822170 SAFEMARS",
       "cashPrice": "",
       "entries": ""
-    },
-    {
-      "lotteryID": 2,
-      "productId": "watch",
-      "productName": "SAMSUMG GALAXY SMART WATCH ",
-      "imgUri": "watch.png",
-      "duration": "86400",
-      "price": "4722860 SAFEMARS per BUSD",
-      "currencyFromName": "SAFEMARS",
-      "currencyFromIconUri": "safemars-logo.svg",
-      "currencyFromAmount": "28900…",
-      "currencyToName": "BUSD",
-      "currencyToIconUri": "busd.svg",
-      "currencyToAmount": "25",
-      "productDescription": "INCREDIBLE SMART WATCH FOR YOU FOR PARTICIPATING IN THIS LOTTERY. ",
-      "minimumReceived": "0.3587 BUSD",
-      "priceImpact": "<0.01%",
-      "liquidityProviderFee": "2022170 SAFEMARS",
-      "cashPrice": "",
-      "entries": ""
     }
   ]
 }

@@ -11,15 +11,16 @@ import { useContract } from '../../hooks/useContract'
 import { countdown } from './enum'
 import LpLotteryJSON from '../../contracts/LpLottery.json'
 import BusdJSON from '../../contracts/Busd.json'
-import SafemarsJSON from '../../contracts/Safemars.json'
+// import SafemarsJSON from '../../contracts/Safemars.json'
 // import IPancakePairJSON from '../../contracts/PancakeClass.json'
 
-const address = '0xa3eEEe2950eC0F633fcDe966b7C9931Da92E5514'
+const address = '0x0002Fe4B434c0dB769be60ACA9f7B4249B763dda'
 const busdAddress = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'
-const safemarsAddress = '0x3ad9594151886ce8538c1ff615efa2385a8c3a88'
+// const safemarsAddress = '0x3ad9594151886ce8538c1ff615efa2385a8c3a88'
+// const pancakeswapAddress = '0x10ED43C718714eb63d5aA57B78B54704E256024E'
 const LpLotteryABI = JSON.parse(JSON.stringify(LpLotteryJSON)).abi
 const BusdABI = JSON.parse(JSON.stringify(BusdJSON)).abi
-const SafemarsABI = JSON.parse(JSON.stringify(SafemarsJSON)).abi
+// const SafemarsABI = JSON.parse(JSON.stringify(SafemarsJSON)).abi
 // const IPancakePairABI = JSON.parse(JSON.stringify(IPancakePairJSON)).abi
 
 const Title = styled(Text)`
@@ -47,11 +48,11 @@ function Stake(props: any) {
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
   const [originalMinimumInvestBusd, setOriginalMinimumInvestBusd] = useState(0)
-  const [originalMinimumInvestSafemars, setOriginalMinimumInvestSafemars] = useState('')
+  // const [originalMinimumInvestSafemars, setOriginalMinimumInvestSafemars] = useState('')
   const contract = useContract(address, LpLotteryABI)
   const busdContract = useContract(busdAddress, BusdABI)
-  const safemarsContract = useContract(safemarsAddress, SafemarsABI)
-  // const pancakeswap = useContract(address, IPancakePairABI)
+  // const safemarsContract = useContract(safemarsAddress, SafemarsABI)
+  // const pancakeswapContract = useContract(pancakeswapAddress, IPancakePairABI)
   const { account } = useActiveWeb3React()
 
   function errorHandler(e: any) {
@@ -86,21 +87,42 @@ function Stake(props: any) {
           isWinnerDeclared: false,
           winner: '',
           winnerURL: '',
+          userStaked: false,
           timeleft: 0,
           totalEntries: 0,
           unstakes: 0
         }
+        const _participants = await contract?.getAllParticiapntsByLottery(lottery.lotteryID)
+        if (_participants.length !== 0) {
+          if (_participants.includes(account)) {
+            lottery.userStaked = true
+          }
+        }
+
         let _price = await contract?.getCashPrice(lottery.lotteryID)
-        let _mininumInvest = await contract?.getMinimumInvest(lottery.lotteryID)
+        let _minimumInvest = await contract?.getMinimumInvest(lottery.lotteryID)
         const _entriesRequired = await contract?.getEntriesRequired(lottery.lotteryID)
-        // console.log(`Lottery ID = ${_lottery.lotteryID} price = ${_price} minimumInvest = ${_mininumInvest}`)
-        setOriginalMinimumInvestBusd(_mininumInvest)
+
+        // const _minimumInvestSafemarsDecimal = _minimumInvest / 1e9
+
+        // let _minimumInvestSafemars = await pancakeswapContract?.getAmountsOut(_minimumInvest, [
+        //   busdAddress,
+        //   safemarsAddress
+        // ])
+
+        // _minimumInvestSafemars = String(_minimumInvestSafemars).split(',')[1]
+
+        // _minimumInvestSafemars = _minimumInvestSafemars / 1e9
+        setOriginalMinimumInvestBusd(_minimumInvest)
+        // setOriginalMinimumInvestSafemars(String(_minimumInvestSafemars))
+
         _price = _price / 1e18
-        _mininumInvest = _mininumInvest / 1e18
-        setOriginalMinimumInvestSafemars(_mininumInvest)
-        const _entries = _price / ((_mininumInvest * 4) / 100)
+        _minimumInvest = _minimumInvest / 1e18
+
+        const _entries = _price / ((_minimumInvest * 4) / 100)
         const _unstakes = await contract?.getUnstakingCountByLottery(lottery.lotteryID)
-        if (_entriesRequired == 0) {
+
+        if (+_entriesRequired === 0) {
           const _lastEntryTime = await contract?.getTimestampForLastEntry(lottery.lotteryID)
           const _duration = moment
             .utc(_lastEntryTime)
@@ -125,8 +147,9 @@ function Stake(props: any) {
             }
           }
         }
-        lottery.currencyToAmount = _mininumInvest
-        lottery.minimumInvest = _mininumInvest
+
+        lottery.currencyToAmount = _minimumInvest
+        // lottery.currencyFromAmount = _minimumInvestSafemars
         lottery.entries = `${_entriesRequired}`
         lottery.cashPrice = `$${_price}`
         lottery.totalEntries = _entries
@@ -135,7 +158,7 @@ function Stake(props: any) {
       })
     )
 
-    _lotteries = _lotteries.filter((lottery: any) => lottery.totalEntries != lottery.unstakes)
+    _lotteries = _lotteries.filter((lottery: any) => +lottery.totalEntries !== +lottery.unstakes)
 
     setLotteries(_lotteries)
     setLoading(false)
@@ -171,14 +194,15 @@ function Stake(props: any) {
               currencyToName,
               currencyToIconUri,
               currencyToAmount,
-              minimumInvest,
               startCountDown,
               isWinnerDeclared,
               winner,
-              winnerURL
+              winnerURL,
+              userStaked
             }: StakeCardsProps) => {
               return (
                 <StakeCard
+                  lotteries={lotteries}
                   key={productId}
                   lotteryID={lotteryID}
                   productId={productId}
@@ -195,11 +219,11 @@ function Stake(props: any) {
                   currencyToName={currencyToName}
                   currencyToIconUri={currencyToIconUri}
                   currencyToAmount={currencyToAmount}
-                  minimumInvest={minimumInvest}
                   startCountDown={startCountDown}
                   isWinnerDeclared={isWinnerDeclared}
                   winner={winner}
                   winnerURL={winnerURL}
+                  userStaked={userStaked}
                   onCountDownStop={async () => {
                     window.location.reload(false)
                   }}
@@ -207,22 +231,24 @@ function Stake(props: any) {
                     try {
                       await busdContract?.approve(address, originalMinimumInvestBusd)
                       await contract?.participateInBusd(lotteryID, originalMinimumInvestBusd)
-                      alert('Stacked Successfully')
+                      alert('Staked Successfully')
                       window.location.reload(false)
                     } catch (e) {
                       errorHandler(e)
                     }
                   }}
-                  stakeSafemars={async () => {
-                    try {
-                      await safemarsContract?.approve(address, originalMinimumInvestSafemars)
-                      await contract?.participateInSafemars(lotteryID, originalMinimumInvestSafemars)
-                      alert('Stacked Successfully')
-                      window.location.reload(false)
-                    } catch (e) {
-                      errorHandler(e)
-                    }
-                  }}
+                  // stakeSafemars={async () => {
+                  //   try {
+                  //     // const slippage = (parseInt(originalMinimumInvestSafemars) * 5) / 100
+                  //     // const _minimumInvestSafemars = parseInt(originalMinimumInvestSafemars) + Math.round(slippage)
+                  //     await safemarsContract?.approve(address, originalMinimumInvestSafemars)
+                  //     await contract?.participateInSafemars(lotteryID, originalMinimumInvestSafemars)
+                  //     alert('Staked Successfully')
+                  //     window.location.reload(false)
+                  //   } catch (e) {
+                  //     errorHandler(e)
+                  //   }
+                  // }}
                   unstakeClick={async () => {
                     try {
                       await contract?.exit(lotteryID)

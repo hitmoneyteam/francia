@@ -84,13 +84,13 @@ export const TimeLeftTile: React.FC<{ timeLeft: number; startCountDown: number; 
     <Tile height={64} padding="10px 20px">
       <Title>TIMELEFT</Title>
       <Content>
-        {startCountDown == countdown.INACTIVE ? <span>InActive</span> : <></>}
-        {startCountDown == countdown.STARTED ? (
+        {+startCountDown === countdown.INACTIVE ? <span>InActive</span> : <></>}
+        {+startCountDown === countdown.STARTED ? (
           <Countdown date={Date.now() + timeLeft} renderer={TimeLeft} onStop={stopCountDown} />
         ) : (
           <></>
         )}
-        {startCountDown == countdown.FINISHED ? <span>Finished</span> : <></>}
+        {+startCountDown === countdown.FINISHED ? <span>Finished</span> : <></>}
       </Content>
     </Tile>
   )

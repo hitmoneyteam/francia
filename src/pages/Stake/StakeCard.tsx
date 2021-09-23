@@ -9,10 +9,9 @@ import { TimeLeftTile, SmallTileContent, BigTileContent } from './Tile'
 // import { AutoColumn } from 'components/Column'
 import { Base } from 'components/Button'
 import StakeModal, { StakeModalState } from './StakeModal'
-import { countdown } from './enum'
-import apiResponse from './fakeData.json'
 
 export interface StakeCardsProps {
+  lotteries: any
   lotteryID: number
   productId: string
   productName: string
@@ -20,7 +19,6 @@ export interface StakeCardsProps {
   timeleft: number
   entries: string
   cashPrice: string
-  minimumInvest?: number
   duration: string
   price: string
   currencyFromName: string
@@ -34,6 +32,7 @@ export interface StakeCardsProps {
   isWinnerDeclared: boolean
   winner?: string
   winnerURL?: string
+  userStaked: boolean
   stakeBusd?: any
   stakeSafemars?: any
   unstakeClick?: any
@@ -96,6 +95,7 @@ const WinnerAddress = styled(Text)`
 `
 
 const StakeCards: React.FC<StakeCardsProps> = ({
+  lotteries,
   lotteryID,
   productId,
   productName,
@@ -111,12 +111,12 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   currencyToName,
   currencyToIconUri,
   currencyToAmount,
-  minimumInvest,
   onCountDownStop,
   startCountDown,
   isWinnerDeclared,
   winner,
   winnerURL,
+  userStaked,
   stakeBusd,
   stakeSafemars,
   unstakeClick
@@ -124,10 +124,10 @@ const StakeCards: React.FC<StakeCardsProps> = ({
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
   const [confirmationData, setConfirmationData] = useState<StakeModalState>()
 
-  const handleStakeNow = (itemId: string) => {
-    apiResponse.products.forEach(product => {
-      if (product.productId === itemId) {
-        setConfirmationData(product)
+  const handleStakeNow = (lotteryID: number) => {
+    lotteries.forEach((lottery: any) => {
+      if (+lottery.lotteryID === lotteryID) {
+        setConfirmationData(lottery)
         setShowConfirmation(true)
       }
     })
@@ -189,8 +189,8 @@ const StakeCards: React.FC<StakeCardsProps> = ({
         <AutoRow justify="space-around" style={{ marginTop: '10px', marginBottom: '10px' }}></AutoRow>
 
         {!isWinnerDeclared ? (
-          startCountDown == countdown.INACTIVE ? (
-            <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(productId)}>
+          !userStaked ? (
+            <Base borderRadius="15px" backgroundColor="#E2544C" onClick={() => handleStakeNow(lotteryID)}>
               STAKE NOW
             </Base>
           ) : (
@@ -211,7 +211,6 @@ const StakeCards: React.FC<StakeCardsProps> = ({
           productDescription={confirmationData.productDescription}
           imgUri={confirmationData.imgUri}
           cashPrice={cashPrice}
-          minimumInvest={minimumInvest}
           duration={confirmationData.duration}
           price={confirmationData.price}
           currencyFromName={confirmationData.currencyFromName}
