@@ -15,7 +15,6 @@ export interface StakeModalState {
   productDescription: string
   imgUri: string
   cashPrice: string
-  minimumInvest?: number
   duration: string
   currencyFromName: string
   currencyFromIconUri: string
@@ -177,7 +176,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   productDescription,
   imgUri,
   cashPrice,
-  minimumInvest,
   duration,
   currencyFromName,
   currencyFromIconUri,
@@ -253,11 +251,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </AutoRowMargin>
         </div> */}
         <Base borderRadius="15px" backgroundColor="#E2544C" onClick={onConfirmBusdStake}>
-          CONFIRM STAKE ({minimumInvest} BUSD)
+          CONFIRM STAKE ({currencyToAmount} BUSD)
         </Base>
-        <Base borderRadius="15px" backgroundColor="#000" marginTop="10px" onClick={onConfirmSafemarsStake}>
-          CONFIRM STAKE (SAFEMARS)
-        </Base>
+        {/* <Base borderRadius="15px" backgroundColor="#000" marginTop="10px" onClick={onConfirmSafemarsStake}>
+          CONFIRM STAKE ({currencyFromAmount} SAFEMARS)
+        </Base> */}
       </ModalContentWrapper>
     </Modal>
   )
