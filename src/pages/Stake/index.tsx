@@ -266,13 +266,12 @@ function Stake(props: any) {
       </AutoRow>
       {!loading ? (
         <Notice style={{ marginTop: '70px' }}>
-          Please put this text at the bottom of the page after the staking boxes Due to not wanting to delay the Dapp
-          anymore, you can now stake using BUSD / SafeMars LP Tokens. SafeMars Staking will come in the following Dapp
-          Update which we hope to release in the upcoming days! Each stake cost in the form of BUSD will be
-          automatically converted into SafeMars BUSD LP Tokens. Please note during the staking period you could be
-          liable for Impermanent loss/gains. After the staking, the period has finished the Dapp will choose a random
-          wallet from those who staked and automatically send them the cash prize value in SafeMars tokens. You can then
-          unstake your LP tokens which will be returned to you in the form of SafeMars Tokens automatically converted
+          SafeMars Staking will come in the following Dapp Update which we hope to release in the upcoming days!
+          Each stake cost in the form of BUSD will be automatically converted into SafeMars BUSD LP Tokens.
+          Please note during the staking period you could be liable for Impermanent loss/gains.
+          After the staking, the period has finished the Dapp will choose a random wallet from those who staked and 
+          automatically send them the cash prize value in SafeMars tokens. You can then unstake your LP tokens 
+          which will be returned to you in the form of SafeMars Tokens automatically converted
           from the original BUSD value. Should you want to receive the physical goods instead of the cash prize please
           contact one of the team members on Telegram to make arrangements. You can find our team members on our main
           website www.safemarscrypto.com. Good luck Martians!
