@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "lotteryID": 3,
+      "lotteryID": 6,
       "productId": "Apple",
       "productName": "Apple Ipods Pro",
       "imgUri": "apple.png",
@@ -21,7 +21,7 @@
       "entries": ""
     },
     {
-      "lotteryID": 4,
+      "lotteryID": 7,
       "productId": "Samsumng",
       "productName": "Samsung Galaxy Buds pro",
       "imgUri": "samsung.png",

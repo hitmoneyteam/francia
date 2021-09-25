@@ -18,7 +18,7 @@ import Pool from './Pool'
 import PoolFinder from './PoolFinder'
 import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
-import Swap from './Swap'
+// import Swap from './Swap'
 import Stake from './Stake'
 import MarsMission from './MarsMission'
 import Game from './Game'
@@ -60,6 +60,34 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 
+function Iframe(props: any) {
+  return (
+    <div>
+      <iframe
+        title={props.title}
+        src={props.src}
+        height={props.height}
+        width={props.width}
+        frameBorder={props.frameBorder}
+        scrolling={props.scrolling}
+      />
+    </div>
+  )
+}
+
+function IframeComponent() {
+  return (
+    <Iframe
+      title="Converter"
+      src="https://www.flooz.trade/embedded/0x3ad9594151886ce8538c1ff615efa2385a8c3a88/?refId=gCEb25"
+      height="570"
+      width="400"
+      frameBorder="0"
+      scrolling="no"
+    />
+  )
+}
+
 export default function App() {
   return (
     <Suspense fallback={null}>
@@ -75,7 +103,8 @@ export default function App() {
           <Polling />
           <Web3ReactManager>
             <Switch>
-              <Route exact strict path="/swap" component={Swap} />
+              {/* <Route exact strict path="/swap" component={Swap} /> */}
+              <Route exact strict path="/swap" component={IframeComponent} />
               <Route exact strict path="/stake" component={Stake} />
               <Route exact strict path="/game" component={Game} />
               <Route exact strict path="/mars-mission" component={MarsMission} />
@@ -96,6 +125,7 @@ export default function App() {
               <Route component={RedirectPathToSwapOnly} />
             </Switch>
           </Web3ReactManager>
+
           <Marginer />
         </BodyWrapper>
       </AppWrapper>
