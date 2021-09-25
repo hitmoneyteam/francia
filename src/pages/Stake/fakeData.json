@@ -1,11 +1,11 @@
 {
   "products": [
     {
-      "lotteryID": 0,
+      "lotteryID": 3,
       "productId": "Apple",
       "productName": "Apple Ipods Pro",
       "imgUri": "apple.png",
-      "duration": "300",
+      "duration": "259200",
       "price": "4722860 SAFEMARS per BUSD",
       "currencyFromName": "SAFEMARS",
       "currencyFromIconUri": "safemars-logo.svg",
@@ -21,7 +21,7 @@
       "entries": ""
     },
     {
-      "lotteryID": 1,
+      "lotteryID": 4,
       "productId": "Samsumng",
       "productName": "Samsung Galaxy Buds pro",
       "imgUri": "samsung.png",
@@ -41,11 +41,11 @@
       "entries": ""
     },
     {
-      "lotteryID": 2,
+      "lotteryID": 5,
       "productId": "ledger",
       "productName": "ledger-nano-s",
       "imgUri": "ledger-nano-s.png",
-      "duration": "259200",
+      "duration": "172800",
       "price": "4722860 SAFEMARS per BUSD",
       "currencyFromName": "SAFEMARS",
       "currencyFromIconUri": "safemars-logo.svg",
